@@ -15,13 +15,13 @@ public class mainScript : MonoBehaviour
     GameObject goldAmount;
 
     [SerializeField]
-    GameObject shovelsAmount;
+    GameObject pickaxesAmount;
 
     [SerializeField]
     Button resetButton;
 
     [SerializeField]
-    int shovels = 20;
+    int pickaxes = 20;
 
     [SerializeField]
     int winCondition = 3;
@@ -42,7 +42,7 @@ public class mainScript : MonoBehaviour
         cells = new GameObject[size, size];
         inGame = true;
         goldAmount.GetComponent<Text>().text = "0";
-        shovelsAmount.GetComponent<Text>().text = shovels.ToString();
+        pickaxesAmount.GetComponent<Text>().text = pickaxes.ToString();
         digColourDelta = cellPrefab.GetComponent<Image>().color;
         for (int i = 0; i < size; ++i) 
             for(int j = 0; j < size; ++j)
@@ -91,10 +91,10 @@ public class mainScript : MonoBehaviour
             else if (depths[i, j] > 0)
             {
                 --depths[i, j];
-                --shovels;
-                shovelsAmount.GetComponent<Text>().text = shovels.ToString();
+                --pickaxes;
+                pickaxesAmount.GetComponent<Text>().text = pickaxes.ToString();
                 Image cellImage = cells[i, j].GetComponent<Image>();
-                if (shovels <= 0) inGame = false;
+                if (pickaxes <= 0) inGame = false;
                 //cellText.text = depths[i, j].ToString();
                 cellImage.color += digColourDelta;
                 int isGold = Random.Range(0, 100);
@@ -107,6 +107,6 @@ public class mainScript : MonoBehaviour
     void Update()
     {
         if (winCounter >= winCondition) Debug.Log("You win! :)");
-        if (shovels <= 0) Debug.Log("You lose :(");
+        if (pickaxes <= 0) Debug.Log("You lose :(");
     }
 }
