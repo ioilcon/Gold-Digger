@@ -839,7 +839,7 @@ MonoBehaviour:
   size: 10
   cellPrefab: {fileID: 123268525}
   goldAmount: {fileID: 810973113}
-  pickaxesAmount: {fileID: 0}
+  pickaxesAmount: {fileID: 2141687639}
   resetButton: {fileID: 1564142868}
   pickaxes: 20
   winCondition: 3
