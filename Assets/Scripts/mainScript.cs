@@ -5,60 +5,60 @@ using UnityEngine.EventSystems;
 
 public class mainScript : MonoBehaviour
 {
-    // Размер игрового поля size x size
+    // Р Р°Р·РјРµСЂ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ size x size
     [SerializeField]
     int size = 10;
 
-    // Префаб клетки, из которых будет собираться поле 
+    // РџСЂРµС„Р°Р± РєР»РµС‚РєРё, РёР· РєРѕС‚РѕСЂС‹С… Р±СѓРґРµС‚ СЃРѕР±РёСЂР°С‚СЊСЃСЏ РїРѕР»Рµ 
     [SerializeField]
     GameObject cellPrefab;
 
-    // Текстовое поле для отображения кол-ва собранного золота
+    // РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»-РІР° СЃРѕР±СЂР°РЅРЅРѕРіРѕ Р·РѕР»РѕС‚Р°
     [SerializeField]
     GameObject goldAmount;
 
-    // Текстовое поле для отображения оставшегося количества попыток
+    // РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕСЃС‚Р°РІС€РµРіРѕСЃСЏ РєРѕР»РёС‡РµСЃС‚РІР° РїРѕРїС‹С‚РѕРє
     [SerializeField]
     GameObject pickaxesAmount;
 
-    // Кнопка для перезапуска игры
+    // РљРЅРѕРїРєР° РґР»СЏ РїРµСЂРµР·Р°РїСѓСЃРєР° РёРіСЂС‹
     [SerializeField]
     Button resetButton;
 
-    // Начальное количество попыток
+    // РќР°С‡Р°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРїС‹С‚РѕРє
     [SerializeField]
     int pickaxes = 20;
 
-    // Необходимое условие для победы
+    // РќРµРѕР±С…РѕРґРёРјРѕРµ СѓСЃР»РѕРІРёРµ РґР»СЏ РїРѕР±РµРґС‹
     [SerializeField]
     int winCondition = 3;
 
-    // Счётчик собранного золота
+    // РЎС‡С‘С‚С‡РёРє СЃРѕР±СЂР°РЅРЅРѕРіРѕ Р·РѕР»РѕС‚Р°
     int winCounter = 0;
 
-    // Шанс 1-100 на получение золота при раскопке клетки
+    // РЁР°РЅСЃ 1-100 РЅР° РїРѕР»СѓС‡РµРЅРёРµ Р·РѕР»РѕС‚Р° РїСЂРё СЂР°СЃРєРѕРїРєРµ РєР»РµС‚РєРё
     [SerializeField]
     int goldChance = 15;
 
-    // Изначальная глубина клеток
+    // РР·РЅР°С‡Р°Р»СЊРЅР°СЏ РіР»СѓР±РёРЅР° РєР»РµС‚РѕРє
     [SerializeField]
     int maxDepth = 3;
 
-    // Массив глубин клеток
+    // РњР°СЃСЃРёРІ РіР»СѓР±РёРЅ РєР»РµС‚РѕРє
     int[,] depths;
 
-    // Игровое поле - массив клеток
+    // РРіСЂРѕРІРѕРµ РїРѕР»Рµ - РјР°СЃСЃРёРІ РєР»РµС‚РѕРє
     GameObject[,] cells;
 
-    // Флаг, определяющий, не законлилась ли игра
+    // Р¤Р»Р°Рі, РѕРїСЂРµРґРµР»СЏСЋС‰РёР№, РЅРµ Р·Р°РєРѕРЅР»РёР»Р°СЃСЊ Р»Рё РёРіСЂР°
     bool inGame = true;
 
-    // Цвет, на который изменяется клетка при уменьшении "глубины". Дельта цвета
+    // Р¦РІРµС‚, РЅР° РєРѕС‚РѕСЂС‹Р№ РёР·РјРµРЅСЏРµС‚СЃСЏ РєР»РµС‚РєР° РїСЂРё СѓРјРµРЅСЊС€РµРЅРёРё "РіР»СѓР±РёРЅС‹". Р”РµР»СЊС‚Р° С†РІРµС‚Р°
     Color digColourDelta;
 
     void Start()
     {
-        // Инициализация переменных при начале игры
+        // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРјРµРЅРЅС‹С… РїСЂРё РЅР°С‡Р°Р»Рµ РёРіСЂС‹
         depths = new int[size, size];
         cells = new GameObject[size, size];
         inGame = true;
@@ -69,11 +69,11 @@ public class mainScript : MonoBehaviour
         for (int i = 0; i < size; ++i) 
             for(int j = 0; j < size; ++j)
             {
-                // Создание игрового поля, заполнение его префабами клеток
+                // РЎРѕР·РґР°РЅРёРµ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ, Р·Р°РїРѕР»РЅРµРЅРёРµ РµРіРѕ РїСЂРµС„Р°Р±Р°РјРё РєР»РµС‚РѕРє
                 depths[i, j] = maxDepth;
                 cells[i, j] = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, transform);
                 RectTransform rt = cells[i, j].GetComponent<RectTransform>();
-                // Поле занимает весь экран в высоту и половину (четверть экрана справа и слева свободны) экрана в ширину
+                // РџРѕР»Рµ Р·Р°РЅРёРјР°РµС‚ РІРµСЃСЊ СЌРєСЂР°РЅ РІ РІС‹СЃРѕС‚Сѓ Рё РїРѕР»РѕРІРёРЅСѓ (С‡РµС‚РІРµСЂС‚СЊ СЌРєСЂР°РЅР° СЃРїСЂР°РІР° Рё СЃР»РµРІР° СЃРІРѕР±РѕРґРЅС‹) СЌРєСЂР°РЅР° РІ С€РёСЂРёРЅСѓ
                 rt.anchorMin = new Vector2(i * 0.5f / size + 0.25f, j * 1.0f / size);
                 rt.anchorMax = new Vector2((i + 1) * 0.5f / size + 0.25f, (j + 1) * 1.0f / size);
                 rt.offsetMin = Vector2.zero;
@@ -88,7 +88,7 @@ public class mainScript : MonoBehaviour
 
     private void buttonCallBack()
     {
-        // Перезагрузка игры
+        // РџРµСЂРµР·Р°РіСЂСѓР·РєР° РёРіСЂС‹
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
@@ -100,14 +100,14 @@ public class mainScript : MonoBehaviour
     public void OnPointerDown(BaseEventData data)
     {
         PointerEventData ptr = (PointerEventData) data;
-        // Определение клетки поля, на которую нажал игрок (курсор/палец)
+        // РћРїСЂРµРґРµР»РµРЅРёРµ РєР»РµС‚РєРё РїРѕР»СЏ, РЅР° РєРѕС‚РѕСЂСѓСЋ РЅР°Р¶Р°Р» РёРіСЂРѕРє (РєСѓСЂСЃРѕСЂ/РїР°Р»РµС†)
         int i = (int) ((ptr.position.x - Screen.width / 4) / (Screen.width / 2) * size );
         int j = (int) (ptr.position.y / Screen.height * size);
         Text cellText = cells[i, j].GetComponent<RectTransform>().GetChild(0).GetComponent<Text>();
         if (cellText.text == "G!")
         {
-            // Если обрабатываемый клик попал на клетку с золотом
-            // Добавление золота в "копилку" 
+            // Р•СЃР»Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹Р№ РєР»РёРє РїРѕРїР°Р» РЅР° РєР»РµС‚РєСѓ СЃ Р·РѕР»РѕС‚РѕРј
+            // Р”РѕР±Р°РІР»РµРЅРёРµ Р·РѕР»РѕС‚Р° РІ "РєРѕРїРёР»РєСѓ" 
             ++winCounter;
             goldAmount.GetComponent<Text>().text = winCounter.ToString();
             if (winCounter >= winCondition) inGame = false;
@@ -115,14 +115,14 @@ public class mainScript : MonoBehaviour
         }
         else if (inGame && depths[i, j] > 0)
         {
-            // Если игра не окончена и обрабатываемый клик попал на закрытую клетку (глубина не максимальная)
+            // Р•СЃР»Рё РёРіСЂР° РЅРµ РѕРєРѕРЅС‡РµРЅР° Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹Р№ РєР»РёРє РїРѕРїР°Р» РЅР° Р·Р°РєСЂС‹С‚СѓСЋ РєР»РµС‚РєСѓ (РіР»СѓР±РёРЅР° РЅРµ РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ)
             --depths[i, j];
             --pickaxes;
             pickaxesAmount.GetComponent<Text>().text = pickaxes.ToString();
-            // RGB компоненты цвета клетки изменяются на соответствующие у digColourDelta
+            // RGB РєРѕРјРїРѕРЅРµРЅС‚С‹ С†РІРµС‚Р° РєР»РµС‚РєРё РёР·РјРµРЅСЏСЋС‚СЃСЏ РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ Сѓ digColourDelta
             Image cellImage = cells[i, j].GetComponent<Image>();
             cellImage.color += digColourDelta;
-            // Клетка раскапывается, проверяется, есть ли тут золото и остались ли ещё попытки
+            // РљР»РµС‚РєР° СЂР°СЃРєР°РїС‹РІР°РµС‚СЃСЏ, РїСЂРѕРІРµСЂСЏРµС‚СЃСЏ, РµСЃС‚СЊ Р»Рё С‚СѓС‚ Р·РѕР»РѕС‚Рѕ Рё РѕСЃС‚Р°Р»РёСЃСЊ Р»Рё РµС‰С‘ РїРѕРїС‹С‚РєРё
             int isGold = Random.Range(0, 100);
             if (isGold <= goldChance) cellText.text = "G!";
             if (pickaxes <= 0) inGame = false;
@@ -131,7 +131,7 @@ public class mainScript : MonoBehaviour
 
     void Update()
     {
-        // Затычка, тут должно быть окошко с окончанием игры и результатом
+        // Р—Р°С‚С‹С‡РєР°, С‚СѓС‚ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РѕРєРѕС€РєРѕ СЃ РѕРєРѕРЅС‡Р°РЅРёРµРј РёРіСЂС‹ Рё СЂРµР·СѓР»СЊС‚Р°С‚РѕРј
         if (winCounter >= winCondition) Debug.Log("You win! :)");
         if (pickaxes <= 0) Debug.Log("You lose :(");
     }
